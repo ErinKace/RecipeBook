@@ -8,15 +8,9 @@ import { ShoppingListService } from './shared/shopping-list.service';
 })
 export class AppComponent {
   title = 'recipe-book';
-  loadedFeature: string = 'recipe';
 
   constructor(private shoppingListService: ShoppingListService) {
 
-  }
-
-
-  onNavigate(feature:string) {
-    this.loadedFeature = feature;
   }
 
 }
