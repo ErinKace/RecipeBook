@@ -9,7 +9,7 @@ import { RecipeService } from "./recipe.service";
     // providers: [RecipeService],
 })
 
-export class RecipeBookComponent implements OnInit, OnChanges {
+export class RecipeBookComponent implements OnInit {
     recipeToDisplay!: Recipe;
 
     constructor(private recipeService: RecipeService) {
@@ -20,14 +20,7 @@ export class RecipeBookComponent implements OnInit, OnChanges {
         this.recipeService.recipeSelected.subscribe(
             (recipe: Recipe)=>{
                 this.recipeToDisplay = recipe;
-            }
-        )
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.recipeService.recipeSelected.subscribe(
-            (recipe: Recipe)=>{
-                this.recipeToDisplay = recipe;
+                console.log("Recipe selected")
             }
         )
     }
