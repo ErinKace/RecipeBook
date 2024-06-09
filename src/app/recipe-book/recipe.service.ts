@@ -16,14 +16,18 @@ export class RecipeService {
         return this.recipeList.slice();
     }
 
-    public selectRecipeById(id:number): boolean {
-        for (let recipe of this.recipeList) {
-            if (recipe.id === id) {
-                this.recipeSelected.emit(recipe);
-                return true;
-            }
-        }
-        return false;
+    // public selectRecipeById(id:number): boolean {
+    //     for (let recipe of this.recipeList) {
+    //         if (recipe.id === id) {
+    //             this.recipeSelected.emit(recipe);
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+    public selectRecipebyIndex(index: number): Recipe {
+        return this.recipeList[index];
     }
 
 }
