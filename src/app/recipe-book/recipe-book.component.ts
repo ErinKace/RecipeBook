@@ -17,12 +17,7 @@ export class RecipeBookComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.recipeService.recipeSelected.subscribe(
-            (recipe: Recipe)=>{
-                this.recipeToDisplay = recipe;
-                console.log("Recipe selected")
-            }
-        )
+
     }
 
 }
