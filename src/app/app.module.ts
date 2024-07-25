@@ -15,6 +15,7 @@ import { ShoppingListService } from './shared/shopping-list.service';
 import { RecipeService } from './recipe-book/recipe.service';
 import { SelectRecipeComponent } from './recipe-book/select-recipe/select-recipe.component';
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
