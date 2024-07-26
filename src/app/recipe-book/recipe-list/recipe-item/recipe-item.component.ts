@@ -18,7 +18,7 @@ export class RecipeItemComponent implements OnInit {
   }
 
   showDetail(selectedRecipe: Recipe) {
-    this.recipeService.recipeSelected.emit(selectedRecipe);
+    // this.recipeService.recipeSelected.emit(selectedRecipe);
     let path: string = String(selectedRecipe.id);
     this.router.navigate([path],{relativeTo: this.route});
 
