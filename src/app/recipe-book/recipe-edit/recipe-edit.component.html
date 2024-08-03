@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-        <form>
+        <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-xs-12">
                     <button type="submit" class="btn btn-success">Save</button>
@@ -14,6 +14,7 @@
                         <input
                         type="text"
                         id="name"
+                        formControlName="name"
                         class="form-control"/>
                     </div>
                 </div>
@@ -25,6 +26,7 @@
                         <input
                         type="text"
                         id="imagePath"
+                        formControlName="imagePath"
                         class="form-control"/>
                     </div>
                 </div>
@@ -41,6 +43,7 @@
                         <textarea
                         type="text"
                         id="description"
+                        formControlName="description"
                         class="form-control"
                         rows="6">
                         </textarea>
@@ -48,16 +51,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="row">
+                <div *ngFor="let ingredientCtrl of getControls(); let i = index" class="col-xs-12" formArrayName="ingredients">
+                    <div class="row" [formGroupName]="i">
                         <div class="col-xs-8">
                             <input 
                             type="text" 
+                            formControlName="name"
                             class="form-control"/>
                         </div>
                         <div class="col-xs-2">
                             <input 
                             type="text" 
+                            formControlName="amount"
                             class="form-control"/>
                         </div>
                         <div class="col-xs-2">
