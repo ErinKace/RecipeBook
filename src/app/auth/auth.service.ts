@@ -12,7 +12,7 @@ interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    apiUrl: string = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[AIzaSyBsvu-x7fFjQU9S9nEeV4TCK97LeOwfhdk]";
+    apiUrl: string = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBsvu-x7fFjQU9S9nEeV4TCK97LeOwfhdk";
 
     constructor(private http: HttpClient) {
 
