@@ -36,6 +36,7 @@ export class AuthService {
             returnedSecureToken: true,
         }
     ).pipe(catchError(this.handleError), tap(resData => {
+        console.log(resData);
 this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.expiresIn))
     }));
     }
@@ -47,6 +48,7 @@ this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.
             returnedSecureToken: true,
         }
     ).pipe(catchError(this.handleError), tap(resData => {
+        // console.log("Expires In from Firebase: "+resData.expiresIn);
         this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.expiresIn));
             }));
     }
@@ -77,8 +79,30 @@ this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.
 
     private handleUser(email: string, userId: string, token: string, expiresIn: number) {
         const expirationDate = new Date(new Date().getTime() + expiresIn*1000);
+        // console.log("Expires in convereted: "+expirationDate);
         const user = new User(email, userId, token, expirationDate);
         this.user.next(user);
+        localStorage.setItem('userData', JSON.stringify(user));
+    }
+
+    autoLogin() {
+        const userData = localStorage.getItem('userData');
+        if (!userData) {
+            return;
+        }
+        const formattedData: {
+            email: string,
+            id: string,
+            _token: string,
+            _tokenExpirationDate: string,
+
+        } = JSON.parse(userData);
+        const loadedUser = new User(formattedData.email, formattedData.id, formattedData._token, new Date(formattedData._tokenExpirationDate));
+        if (loadedUser.token) {
+            this.user.next(loadedUser);
+        }
+        
+
     }
 
     logout() {
