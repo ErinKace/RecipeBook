@@ -22,6 +22,8 @@ export class AuthService {
 
     apiKey: string = "AIzaSyBsvu-x7fFjQU9S9nEeV4TCK97LeOwfhdk";
 
+    private tokenExpirationTimer: any;
+
     // https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
     // https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
 
@@ -48,7 +50,6 @@ this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.
             returnedSecureToken: true,
         }
     ).pipe(catchError(this.handleError), tap(resData => {
-        // console.log("Expires In from Firebase: "+resData.expiresIn);
         this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.expiresIn));
             }));
     }
@@ -81,6 +82,7 @@ this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.
         const expirationDate = new Date(new Date().getTime() + expiresIn*1000);
         // console.log("Expires in convereted: "+expirationDate);
         const user = new User(email, userId, token, expirationDate);
+        this.autoLogout(1200000);
         this.user.next(user);
         localStorage.setItem('userData', JSON.stringify(user));
     }
@@ -100,6 +102,7 @@ this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.
         const loadedUser = new User(formattedData.email, formattedData.id, formattedData._token, new Date(formattedData._tokenExpirationDate));
         if (loadedUser.token) {
             this.user.next(loadedUser);
+            this.autoLogout(1200000);
         }
         
 
@@ -108,6 +111,17 @@ this.handleUser(resData.email, resData.localId, resData.idToken, Number(resData.
     logout() {
         this.user.next(null);
         this.router.navigate(['/auth']);
+        localStorage.removeItem('userData');
+        if (this.tokenExpirationTimer) {
+            clearTimeout(this.tokenExpirationTimer);
+        }
+        this.tokenExpirationTimer = null;
+    }
+
+    autoLogout(expirationDuration: number) {
+        this.tokenExpirationTimer = setTimeout(() => {
+            this.logout();
+        }, expirationDuration);
     }
 
 }
