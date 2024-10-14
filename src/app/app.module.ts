@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { AuthIntercepterService } from './auth/auth-intercetor';
+import { AlertComponent } from './shared/Alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AuthIntercepterService } from './auth/auth-intercetor';
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
