@@ -9,9 +9,9 @@ import { ShoppingListService } from './shared/shopping-list.service';
 import { RecipeService } from './recipe-book/recipe.service';
 import { AuthIntercepterService } from './auth/auth-intercetor';
 import { RecipesModule } from './recipe-book/recipes.module';
-import { ShoppingListModule } from './shopping-list.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { SharedModule } from './shared.module';
-import { AuthModule } from './auth.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -22,10 +22,7 @@ import { AuthModule } from './auth.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RecipesModule,
-    ShoppingListModule,
     SharedModule,
-    AuthModule,
   ],
   providers: [ShoppingListService, RecipeService, {provide: HTTP_INTERCEPTORS, useClass: AuthIntercepterService, multi: true}],
   bootstrap: [AppComponent]
